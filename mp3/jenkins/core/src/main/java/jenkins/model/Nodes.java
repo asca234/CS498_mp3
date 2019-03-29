@@ -112,8 +112,7 @@ public class Nodes implements Saveable {
                     Nodes.this.nodes.put(name, n);
                 }
                 Nodes.this.nodes.keySet().removeAll(toRemove); // directory clean up will be handled by save
-                jenkins.updateComputerList();
-                jenkins.trimLabels();
+                updateAndtrim();
             }
         });
         save();
@@ -133,8 +132,7 @@ public class Nodes implements Saveable {
                 @Override
                 public void run() {
                     nodes.put(node.getNodeName(), node);
-                    jenkins.updateComputerList();
-                    jenkins.trimLabels();
+                    updateAndtrim();
                 }
             });
             // no need for a full save() so we just do the minimum
@@ -166,8 +164,7 @@ public class Nodes implements Saveable {
                         c.disconnect(OfflineCause.create(hudson.model.Messages._Hudson_NodeBeingRemoved()));
                     }
                     if (node == nodes.remove(node.getNodeName())) {
-                        jenkins.updateComputerList();
-                        jenkins.trimLabels();
+                        updateAndtrim();
                     }
                 }
             });
@@ -251,8 +248,7 @@ public class Nodes implements Saveable {
                     }
                 }
                 nodes.putAll(newNodes);
-                jenkins.updateComputerList();
-                jenkins.trimLabels();
+                updateAndtrim();
             }
         });
     }
@@ -279,4 +275,10 @@ public class Nodes implements Saveable {
     public boolean isLegacy() {
         return !new File(jenkins.getRootDir(), "nodes").isDirectory();
     }
+
+	//extracted method for mp3 q2
+	public void updateAndtrim() {
+		jenkins.updateComputerList();
+		jenkins.trimLabels();
+	}
 }

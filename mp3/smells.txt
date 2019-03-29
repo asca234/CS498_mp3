@@ -1,0 +1,4 @@
+1) this is a duplicated code smell. the refactoring to fix this would be to 
+extract the duplicated statements into a method to then be called in place of 
+the duplicate code segments.
+

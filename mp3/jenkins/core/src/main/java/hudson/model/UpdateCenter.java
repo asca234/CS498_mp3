@@ -562,6 +562,7 @@ public class UpdateCenter extends AbstractModelObject implements Saveable, OnMas
         return new ArrayList<Plugin>(pluginMap.values());
     }
 
+    //extracted method for mp3 #1
 	public void tryAddPluginToMap(Map<String, Plugin> pluginMap, Plugin plugin) {
 		final Plugin existing = pluginMap.get(plugin.name);
 		if (existing == null) {
