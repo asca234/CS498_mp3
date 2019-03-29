@@ -3936,7 +3936,13 @@ public class Jenkins extends AbstractCIBase implements DirectlyModifiableTopLeve
         }
     }
 
-    public static class MasterComputer extends Computer {
+    //mp3 q3 method; moved from Nodes.java
+    public void updateAndtrim() {
+		updateComputerList();
+		trimLabels();
+	}
+
+	public static class MasterComputer extends Computer {
         protected MasterComputer() {
             super(Jenkins.getInstance());
         }

@@ -1,4 +1,9 @@
-1) this is a duplicated code smell. the refactoring to fix this would be to 
+1) This is a duplicated code smell. The refactoring to fix this would be to 
 extract the duplicated statements into a method to then be called in place of 
 the duplicate code segments.
 
+3) This new method likely belongs in the Jenkins class. This is a either a 
+case of message chain or feature envy, possibly both. The refactoring to fix 
+both of these smells would be to move the new extracted method to the Jenkins 
+class, wherein it will call both the update and trim methods inside it's own 
+class.

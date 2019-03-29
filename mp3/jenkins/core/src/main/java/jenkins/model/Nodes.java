@@ -67,7 +67,7 @@ public class Nodes implements Saveable {
      * The {@link Jenkins} instance that we are tracking nodes for.
      */
     @Nonnull
-    private final Jenkins jenkins;
+    final Jenkins jenkins;
 
     /**
      * The map of nodes.
@@ -112,7 +112,7 @@ public class Nodes implements Saveable {
                     Nodes.this.nodes.put(name, n);
                 }
                 Nodes.this.nodes.keySet().removeAll(toRemove); // directory clean up will be handled by save
-                updateAndtrim();
+                jenkins.updateAndtrim();
             }
         });
         save();
@@ -132,7 +132,7 @@ public class Nodes implements Saveable {
                 @Override
                 public void run() {
                     nodes.put(node.getNodeName(), node);
-                    updateAndtrim();
+                    jenkins.updateAndtrim();
                 }
             });
             // no need for a full save() so we just do the minimum
@@ -164,7 +164,7 @@ public class Nodes implements Saveable {
                         c.disconnect(OfflineCause.create(hudson.model.Messages._Hudson_NodeBeingRemoved()));
                     }
                     if (node == nodes.remove(node.getNodeName())) {
-                        updateAndtrim();
+                        jenkins.updateAndtrim();
                     }
                 }
             });
@@ -248,7 +248,7 @@ public class Nodes implements Saveable {
                     }
                 }
                 nodes.putAll(newNodes);
-                updateAndtrim();
+                jenkins.updateAndtrim();
             }
         });
     }
@@ -275,10 +275,4 @@ public class Nodes implements Saveable {
     public boolean isLegacy() {
         return !new File(jenkins.getRootDir(), "nodes").isDirectory();
     }
-
-	//extracted method for mp3 q2
-	public void updateAndtrim() {
-		jenkins.updateComputerList();
-		jenkins.trimLabels();
-	}
 }
