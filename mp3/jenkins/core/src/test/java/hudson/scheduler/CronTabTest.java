@@ -100,7 +100,11 @@ public class CronTabTest {
         cal.set(2011, 0, 16, 0, 0, 0); // Sunday, Jan 16th 2011, 00:00
         final String cronStr = "0 23 * * 1-5"; // execute on weekdays @23:00
 
-        final CronTab cron = new CronTab(cronStr);
+        cronTabTestExtractedMethod(cal, cronStr);
+    }
+
+	private void cronTabTestExtractedMethod(final Calendar cal, final String cronStr) throws ANTLRException {
+		final CronTab cron = new CronTab(cronStr);
         final Calendar next = cron.ceil(cal);
 
         final Calendar expectedDate = Calendar.getInstance();
@@ -110,7 +114,7 @@ public class CronTabTest {
         assertEquals(expectedDate.get(Calendar.YEAR), next.get(Calendar.YEAR));
         assertEquals(expectedDate.get(Calendar.MONTH), next.get(Calendar.MONTH));
         assertEquals(expectedDate.get(Calendar.DAY_OF_MONTH), next.get(Calendar.DAY_OF_MONTH)); // FAILS: is Monday, Jan 10th, 23:00
-    }
+	}
 
     /**
      * Verifies that HUDSON-8656 never crops up again.
@@ -122,16 +126,7 @@ public class CronTabTest {
         cal.set(2011, 0, 16, 0, 0, 0); // Sunday, Jan 16th 2011, 00:00
         final String cronStr = "0 23 * * 1-5"; // execute on weekdays @23:00
 
-        final CronTab cron = new CronTab(cronStr);
-        final Calendar next = cron.ceil(cal);
-
-        final Calendar expectedDate = Calendar.getInstance();
-        expectedDate.set(2011, 0, 17, 23, 0, 0); // Expected next: Monday, Jan 17th 2011, 23:00
-        assertEquals(expectedDate.get(Calendar.HOUR), next.get(Calendar.HOUR));
-        assertEquals(expectedDate.get(Calendar.MINUTE), next.get(Calendar.MINUTE));
-        assertEquals(expectedDate.get(Calendar.YEAR), next.get(Calendar.YEAR));
-        assertEquals(expectedDate.get(Calendar.MONTH), next.get(Calendar.MONTH));
-        assertEquals(expectedDate.get(Calendar.DAY_OF_MONTH), next.get(Calendar.DAY_OF_MONTH)); // FAILS: is Monday, Jan 10th, 23:00
+        cronTabTestExtractedMethod(cal, cronStr);
     }
 
     @Test
