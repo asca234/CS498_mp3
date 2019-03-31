@@ -7,3 +7,11 @@ case of message chain or feature envy, possibly both. The refactoring to fix
 both of these smells would be to move the new extracted method to the Jenkins 
 class, wherein it will call both the update and trim methods inside it's own 
 class.
+
+4) This repetition of code could be reduced by removing the last three instances,
+and surrounding the first instance with a for loop which iterates the if statement
+4 times in total.
+
+6) When extracting a method eclipse tells us when code we've selected gets duplicated,
+we were able to find one in the file cronTabTest and place it in a method named
+ cronTabTestExtractedMethod.
